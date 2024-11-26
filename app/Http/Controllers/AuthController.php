@@ -41,8 +41,19 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             $request->session()->regenerate(); // Previne hijacking de sessão
             Log::info('Usuário logado com sucesso.', ['email' => $request->email]);
-            return redirect()->intended('dashboard');
+
+            // Verifica se o usuário é administrador
+            if (Auth::user()->is_admin) {
+                return redirect()->intended('admin/dashboard');
+            } else {
+                return redirect()->intended('/welcome');
+            }
         }
+
+        // Se a autenticação falhar
+        return back()->withErrors([
+            'email' => 'As credenciais fornecidas não correspondem aos nossos registros.',
+        ]);
 
         // Log de falha de login
         Log::warning('Tentativa de login falhou.', ['email' => $request->email]);

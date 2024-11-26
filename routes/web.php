@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthGoogleController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,12 @@ use App\Http\Controllers\AuthGoogleController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware('auth')->group(function () {
+    // verificar se o controller ficou com o mesmo nome
+    Route::get('/welcome', [DashboardController::class, 'showWelcomePage'])->name('welcome');
+    Route::get('/admin-dashboard', [DashboardController::class, 'showAdminDashboard'])->middleware('admin')->name('admin.dashboard');
 });
 
 // Rotas de autenticação
