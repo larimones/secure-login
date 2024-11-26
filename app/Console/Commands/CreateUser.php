@@ -12,7 +12,7 @@ class CreateUser extends Command
      *
      * @var string
      */
-    protected $signature = 'user:create {name} {email} {password}';
+    protected $signature = 'user:create {name} {email} {password} {--admin}';
 
     /**
      * The console command description.
@@ -31,6 +31,7 @@ class CreateUser extends Command
         $name = $this->argument('name');
         $email = $this->argument('email');
         $password = $this->argument('password');
+        $isAdmin = $this->option('admin');
 
         // Verificar se o usuário já existe
         if (User::where('email', $email)->exists()) {
@@ -43,6 +44,7 @@ class CreateUser extends Command
             'name' => $name,
             'email' => $email,
             'password' => bcrypt($password),
+            'is_admin' => $isAdmin,
         ]);
 
         $this->info('Usuário criado com sucesso: ' . $user->email);
