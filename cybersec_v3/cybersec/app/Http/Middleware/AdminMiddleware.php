@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
 {
- /**
+    /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -17,11 +17,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->is_admin){
-            return $next($request);
+        if ($request->user()->is_admin) {
+            return redirect()->route('admin-dashboard');
         }
 
-    return response()->json(['error' => 'Not authorized.'],403);
-
+        return redirect()->route('dashboard');
     }
 }
