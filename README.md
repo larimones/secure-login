@@ -72,6 +72,40 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 https://github.com/mailjet/mailjet-apiv3-php
 
+## como rodar o projeto
+### clone o repositório 
+'git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio'
+### instale dependências 
+'composer install'
+### Configure o ambiente
+'cp .env.example .env'
+Atualize as seguintes configurações no arquivo .env:
+
+'APP_NAME="Sistema de Login Seguro"
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=seu_banco_de_dados
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+
+GOOGLE_CLIENT_ID=seu_client_id
+GOOGLE_CLIENT_SECRET=seu_client_secret
+GOOGLE_REDIRECT_URL=http://localhost/auth/google/callback'
+
+## gere o banco de dados 
+
+'php artisan migrate'
+
+## inicie o servidor local
+
+'php artisan serve'
+
+
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
